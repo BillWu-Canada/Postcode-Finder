@@ -127,7 +127,6 @@ function geolocate() {
          </div>	
 
          <button id="findmypostcode" class="btn btn-success btn-lg">Find The Postcode</button>
-         <!--div id="map_icon" class=" btn btn-success btn-block btn-sm">show the location of the address on google map</div-->
 
        </from>	
 
@@ -141,7 +140,6 @@ function geolocate() {
 
        <div id="success" class="alert alert-success col-md-6 col-md-offset-3">yeah!!</div>
        <div id="danger" class="alert alert-danger col-md-6 col-md-offset-3">Please enter a valid address</div>
-       <!--div id="map_icon" class=" btn btn-success btn-block btn-sm">show the location of the address on google map</div-->
        <div class="center" id="map-canvas"></div>
 
    </div>
