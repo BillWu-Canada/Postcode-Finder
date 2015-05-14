@@ -153,20 +153,20 @@ function geolocate() {
 
 <script>
 
-   $("#findmypostcode").click(function(event) {
-        //alert("working");
-        var checker = 0;
-        $(".alert").hide();
-        $("#map-canvas").slideUp();
-        event.preventDefault();
+$("#findmypostcode").click(function(event) {
+    //alert("working");
+    var checker = 0;
+    $(".alert").hide();
+    $("#map-canvas").slideUp();
+    event.preventDefault();
 
-        $.ajax({
-            type: "GET",
-            url: "https://maps.googleapis.com/maps/api/geocode/xml?address=" + encodeURIComponent($('#input_address').val()) + "&key=AIzaSyDcznnMCsCMQI3NZb_velORbTJhIxLVJi8",
-            dataType: "xml",
-            success:processXML,
-            error: error
-       });
+    $.ajax({
+        type: "GET",
+        url: "https://maps.googleapis.com/maps/api/geocode/xml?address=" + encodeURIComponent($('#input_address').val()) + "&key=AIzaSyDcznnMCsCMQI3NZb_velORbTJhIxLVJi8",
+        dataType: "xml",
+        success:processXML,
+        error: error
+    });
 
 
 function error() {
@@ -186,6 +186,7 @@ function processXML(xml) {
       var latitude;
       var longitude;
 
+        // find latitude and longitude in xml file
         $(xml).find("location").each(function() {
             latitude = $(this).find("lat").text();
             longitude = $(this).find("lng").text();
