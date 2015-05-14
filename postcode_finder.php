@@ -168,67 +168,74 @@ function geolocate() {
             error: error
        });
 
-       function error() {
-           alert("connection to google map database loss");
-       }
 
-       function processXML(xml) {
-           $(xml).find("address_component").each(function() {
-              //alert($(this).text());
-             if ($(this).find("type").text() == "postal_code") {
-                 // find the postal code !!
-                 $("#success").html("The postcode you looking for is " + ($(this).find("long_name").text())).fadeIn();
-                 $("#map_icon").fadeIn();
+function error() {
+    alert("connection to google map database loss");
+}
 
-                  //get latitude and logtitude
-                  var latitude;
-                  var longitude;
 
-                 $(xml).find("location").each(function() {
-                    latitude = $(this).find("lat").text();
-                    longitude = $(this).find("lng").text();
-                 })
+function processXML(xml) {
+    $(xml).find("address_component").each(function() {
 
-                  // show the address on google map
-                  $("#map-canvas").slideDown(function() {
-                    //alert("show map haha");
-                    var myLatlng = new google.maps.LatLng(latitude,longitude);
-                    var mapOptions = {
-                         zoom: 15,
-                         center: myLatlng
-                    }
-                    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+      if ($(this).find("type").text() == "postal_code") {
+      // find the postal code !!
+      $("#success").html("The postcode you looking for is " + ($(this).find("long_name").text())).fadeIn();
+      $("#map_icon").fadeIn();
 
-                    var marker = new google.maps.Marker({
+      //define latitude and logtitude
+      var latitude;
+      var longitude;
+
+        $(xml).find("location").each(function() {
+            latitude = $(this).find("lat").text();
+            longitude = $(this).find("lng").text();
+        })
+
+
+        // show the address on google map
+        $("#map-canvas").slideDown(function() {
+
+           var myLatlng = new google.maps.LatLng(latitude,longitude);
+           var mapOptions = {
+                zoom: 15,
+                center: myLatlng
+           }
+           
+           // display the map
+           var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+           // define a marker on map
+           var marker = new google.maps.Marker({
                          position: myLatlng,
                          map: map,
                          title: $('#input_address').val()
-                    });
-
-                    var infowindow = new google.maps.InfoWindow({
-                        content: "this is the location of the place you searched."
-                    });
-
-                    google.maps.event.addListener(marker, 'click', function() {
-                        infowindow.open(map,marker);
-                    });
-                  
-                  });
-
-                  checker = 1;
-             }
-
+           });
+           
+           // define a infomation window
+           var infowindow = new google.maps.InfoWindow({
+                  content: "this is the location of the place you searched."
            });
 
-            if (checker == 0) {
-               $("#danger").fadeIn();
-            }
+           // click the marker to show the infomation window
+           google.maps.event.addListener(marker, 'click', function() {
+                  infowindow.open(map,marker);
+           });
+                  
+        });
 
-       }
-
-
+          checker = 1;
+            
+      }
 
    });
+
+      if (checker == 0) {
+          $("#danger").fadeIn();
+      }
+
+ }
+
+});
 
 
 
