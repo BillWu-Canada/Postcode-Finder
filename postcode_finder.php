@@ -192,8 +192,7 @@ function processXML(xml) {
             longitude = $(this).find("lng").text();
         })
 
-
-        // show the address on google map
+        // show the address location on google map
         $("#map-canvas").slideDown(function() {
 
            var myLatlng = new google.maps.LatLng(latitude,longitude);
